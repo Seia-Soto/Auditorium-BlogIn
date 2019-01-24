@@ -1,5 +1,5 @@
 <?php
-if (empty(Auditorium::Flat))) {
+if (empty(Auditorium::Flat)) {
   require_once(dirname(__FILE__).'/__drop.php');
 }
 
@@ -9,6 +9,9 @@ if (empty(Auditorium::Flat))) {
 class Application extends Auditorium
 {
   const Root = dirname(__FILE__);
+  const Workspace = self::Root.'/auditorium';
+
+  const Predictors = self::Root.'/__init';
 
   /**
    * About this Auditorium application.
@@ -17,13 +20,14 @@ class Application extends Auditorium
   {
     const Author = 'Seia-Soto';
     const Publisher = 'Sewritten';
+    const Spectator = 'Josbar';
 
     const Version = 0.0.1;
     const Build = 1;
 
     /**
      * If you forked this application and want to add your name to new application,
-     * please you below.
+     * please use below.
      */
     const Maintainer = '';
     const MaintainPublisher = '';
@@ -38,66 +42,19 @@ class Application extends Auditorium
   class Filesystem
   {
     const Root = array(
-      'path' => parent::path,
-      'writable' => is_writable(parent::path)
+      'path' => parent::Root,
+      'writable' => is_writable(parent::Root)
     );
   }
-}
 
-/**
- * Declares the basic configurations just alike database with ETC. things.
- */
-class Database extends Auditorium
-{
   /**
-   * About database things - user and names...
+   * About default strict tabs and code indexing.
    */
-  private class Credential
+  class Literals
   {
-    require_once(Auditorium::Application->Root.'/__database.php');
-  }
-
-  function estableDock()
-  {
-    $dock = new MySQLi(
-      self::Credential->host,
-      self::Credential->user,
-      self::Credential->password,
-      self::Credential->name,
-      self::Credential->port
-    );
-
-    if ($dock->connect_errno) {
-      $dock = array(
-        'sn' => 1012,
-        'details' => 'Database credential is not valid, please confirm credential installed.'
-      );
-    }
-    if (!$dock->set_charset(self::Credential->charset)) {
-      $dock = array(
-        'sn' => 10062,
-        'details' => 'Cannot set connection encoding with '.self::Credential->charset.', please confirm on your MySQL server\' configuration.'
-      )
-    }
-
-    return $dock;
-  }
-
-  function ifSetless()
-  {
-    $connection = self::estableDock();
-    $flat = 'SELECT Flat FROM '.self::Credential->prefix.'Auditorium';
-
-    $st = $connection->prepare($flat)->execute();
-
-    $result = $st->get_result()->fetch_object();
-    $setless = false;
-
-    if (!isset($result->is)) {
-      $setless = true;
-    }
-    return $setless;
+    const $tab = '  ';
   }
 }
 
+require_once(Auditorium::Application->Workspace.'/index.php');
  ?>

@@ -1,6 +1,14 @@
 <?php
 /**
- * This file is under construction:
- * Why this file did't commit is because the main of application to query effetively is not completed.
+ * Collecting malignity requests from client.
+ * If the client accessed any files without initializing the application, it could cause any negative effects on application.
+ */
+
+// NOTE: Reverse into start point to work correctly.
+require_once(dirname(__FILE__).'/index.php');
+
+// NOTE: Reporting malignity request to database is not complete because structure of database is not done.
+/**
+ * $connection = Auditorium::Database->estableDock();
  */
  ?>
